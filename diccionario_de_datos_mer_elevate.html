@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diccionario de datos - mer_elevate</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--muted:#555;--head:#1f4e78;--band:#ddebf7;--line:#bfbfbf}
+@media (prefers-color-scheme:dark){:root{--bg:#161b22;--fg:#e6edf3;--muted:#9da7b3;--head:#2b6cb0;--band:#1f2a37;--line:#3a4452}}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--fg);max-width:1000px;margin:0 auto;padding:24px;line-height:1.45}
+h1{color:var(--head);margin-bottom:4px}
+.sub{color:var(--muted);margin-top:0}
+h2{margin:32px 0 4px;color:var(--head);font-size:1.25rem}
+p.desc{margin:0 0 8px;color:var(--muted);font-style:italic}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--head);color:#fff}
+tr:nth-child(even) td{background:var(--band)}
+td.m{font-family:Consolas,monospace;white-space:nowrap}
+nav ul{columns:3;padding-left:18px}
+nav a{color:var(--head)}
+.notes{margin-top:32px;font-size:.85rem;color:var(--muted)}
+</style></head><body>
+<h1>Diccionario de datos</h1>
+<p class="sub">Base de datos: <strong>mer_elevate</strong> · 14 tablas</p>
+<nav><strong>Tablas:</strong><ul>
+<li><a href="#clientes">clientes</a></li>
+<li><a href="#telefono_cliente">telefono_cliente</a></li>
+<li><a href="#servicios">servicios</a></li>
+<li><a href="#espacios">espacios</a></li>
+<li><a href="#roles">roles</a></li>
+<li><a href="#usuarios">usuarios</a></li>
+<li><a href="#estado_cotizacion">estado_cotizacion</a></li>
+<li><a href="#cotizaciones">cotizaciones</a></li>
+<li><a href="#detalle_cotizacion">detalle_cotizacion</a></li>
+<li><a href="#estados_de_reserva">estados_de_reserva</a></li>
+<li><a href="#reservas">reservas</a></li>
+<li><a href="#metodo_de_pago">metodo_de_pago</a></li>
+<li><a href="#estado_pago">estado_pago</a></li>
+<li><a href="#pago">pago</a></li>
+</ul></nav>
+<h2 id="clientes">clientes</h2><p class="desc">Personas o empresas que solicitan cotizaciones y reservas de espacios.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_clientes</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único del cliente.</td></tr>
+<tr><td class="m">primer_nombre</td><td class="m">VARCHAR(50)</td><td>NO</td><td>-</td><td>Primer nombre del cliente.</td></tr>
+<tr><td class="m">segundo_nombre</td><td class="m">VARCHAR(50)</td><td>SÍ</td><td>-</td><td>Segundo nombre del cliente (opcional).</td></tr>
+<tr><td class="m">primer_apellido</td><td class="m">VARCHAR(50)</td><td>NO</td><td>-</td><td>Primer apellido del cliente.</td></tr>
+<tr><td class="m">segundo_apellido</td><td class="m">VARCHAR(50)</td><td>SÍ</td><td>-</td><td>Segundo apellido del cliente (opcional).</td></tr>
+<tr><td class="m">tipo_documento</td><td class="m">VARCHAR(20)</td><td>NO</td><td>-</td><td>Tipo de documento de identidad (CC, CE, NIT, pasaporte).</td></tr>
+<tr><td class="m">numero_documento</td><td class="m">VARCHAR(30)</td><td>NO</td><td>-</td><td>Número del documento de identidad del cliente.</td></tr>
+<tr><td class="m">correo_electronico</td><td class="m">VARCHAR(100)</td><td>SÍ</td><td>-</td><td>Correo electrónico de contacto.</td></tr>
+<tr><td class="m">direccion</td><td class="m">VARCHAR(150)</td><td>SÍ</td><td>-</td><td>Dirección de residencia o contacto del cliente.</td></tr>
+<tr><td class="m">fecha_registro</td><td class="m">DATETIME</td><td>NO</td><td>-</td><td>Fecha y hora en que se registró el cliente en el sistema.</td></tr>
+</tbody></table></div>
+<h2 id="telefono_cliente">telefono_cliente</h2><p class="desc">Números de teléfono asociados a cada cliente (un cliente puede tener varios).</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_telefono</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único del teléfono.</td></tr>
+<tr><td class="m">id_cliente</td><td class="m">INT</td><td>NO</td><td>FK → clientes</td><td>Cliente al que pertenece el teléfono.</td></tr>
+<tr><td class="m">numero_telefono</td><td class="m">VARCHAR(20)</td><td>NO</td><td>-</td><td>Número telefónico de contacto.</td></tr>
+<tr><td class="m">tipo_telefono</td><td class="m">VARCHAR(20)</td><td>SÍ</td><td>-</td><td>Tipo de teléfono (móvil, fijo, trabajo, WhatsApp).</td></tr>
+</tbody></table></div>
+<h2 id="servicios">servicios</h2><p class="desc">Catálogo de servicios que se pueden incluir en una cotización.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_servicios</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único del servicio.</td></tr>
+<tr><td class="m">nombre_servicio</td><td class="m">VARCHAR(80)</td><td>NO</td><td>-</td><td>Nombre del servicio ofrecido.</td></tr>
+<tr><td class="m">descripcion</td><td class="m">VARCHAR(250)</td><td>SÍ</td><td>-</td><td>Descripción detallada del servicio.</td></tr>
+<tr><td class="m">precio_base</td><td class="m">DECIMAL(12,2)</td><td>NO</td><td>-</td><td>Precio base del servicio antes de ajustes o descuentos.</td></tr>
+<tr><td class="m">estado</td><td class="m">VARCHAR(20)</td><td>NO</td><td>-</td><td>Estado del servicio (activo, inactivo).</td></tr>
+</tbody></table></div>
+<h2 id="espacios">espacios</h2><p class="desc">Espacios o salones disponibles para reservar.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_espacio</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único del espacio.</td></tr>
+<tr><td class="m">nombre_espacio</td><td class="m">VARCHAR(80)</td><td>NO</td><td>-</td><td>Nombre del espacio.</td></tr>
+<tr><td class="m">descripcion</td><td class="m">VARCHAR(250)</td><td>SÍ</td><td>-</td><td>Descripción del espacio y sus características.</td></tr>
+<tr><td class="m">ubicacion</td><td class="m">VARCHAR(150)</td><td>SÍ</td><td>-</td><td>Ubicación o dirección del espacio.</td></tr>
+<tr><td class="m">capacidad</td><td class="m">INT</td><td>NO</td><td>-</td><td>Número máximo de personas que admite el espacio.</td></tr>
+<tr><td class="m">estado</td><td class="m">VARCHAR(20)</td><td>NO</td><td>-</td><td>Estado del espacio (disponible, en mantenimiento, inactivo).</td></tr>
+</tbody></table></div>
+<h2 id="roles">roles</h2><p class="desc">Perfiles de acceso que se asignan a los usuarios del sistema.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_rol</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único del rol.</td></tr>
+<tr><td class="m">nombre_rol</td><td class="m">VARCHAR(50)</td><td>NO</td><td>-</td><td>Nombre del rol (administrador, vendedor, etc.).</td></tr>
+<tr><td class="m">descripcion</td><td class="m">VARCHAR(200)</td><td>SÍ</td><td>-</td><td>Descripción de los permisos y funciones del rol.</td></tr>
+</tbody></table></div>
+<h2 id="usuarios">usuarios</h2><p class="desc">Usuarios internos que operan el sistema.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_usuarios</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único del usuario.</td></tr>
+<tr><td class="m">id_rol</td><td class="m">INT</td><td>NO</td><td>FK → roles</td><td>Rol asignado al usuario.</td></tr>
+<tr><td class="m">nombre_usuario</td><td class="m">VARCHAR(50)</td><td>NO</td><td>-</td><td>Nombre de usuario para iniciar sesión.</td></tr>
+<tr><td class="m">correo_electronico</td><td class="m">VARCHAR(100)</td><td>NO</td><td>-</td><td>Correo electrónico del usuario.</td></tr>
+<tr><td class="m">password_hash</td><td class="m">VARCHAR(225)</td><td>NO</td><td>-</td><td>Contraseña cifrada (hash), nunca en texto plano.</td></tr>
+<tr><td class="m">estado</td><td class="m">VARCHAR(20)</td><td>NO</td><td>-</td><td>Estado de la cuenta (activo, inactivo, bloqueado).</td></tr>
+<tr><td class="m">fecha_creacion</td><td class="m">DATETIME</td><td>NO</td><td>-</td><td>Fecha y hora de creación de la cuenta.</td></tr>
+</tbody></table></div>
+<h2 id="estado_cotizacion">estado_cotizacion</h2><p class="desc">Catálogo de estados posibles de una cotización.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_estado_cotizacion</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único del estado.</td></tr>
+<tr><td class="m">nombre_estado</td><td class="m">VARCHAR(40)</td><td>NO</td><td>UQ</td><td>Nombre del estado (pendiente, aprobada, rechazada, vencida). Es único.</td></tr>
+<tr><td class="m">descripcion</td><td class="m">VARCHAR(200)</td><td>SÍ</td><td>-</td><td>Explicación de lo que significa el estado.</td></tr>
+</tbody></table></div>
+<h2 id="cotizaciones">cotizaciones</h2><p class="desc">Cotizaciones de servicios emitidas a los clientes.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_cotizacion</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único de la cotización.</td></tr>
+<tr><td class="m">id_cliente</td><td class="m">INT</td><td>NO</td><td>FK → clientes</td><td>Cliente al que se le hace la cotización.</td></tr>
+<tr><td class="m">id_usuario</td><td class="m">INT</td><td>NO</td><td>FK → usuarios</td><td>Usuario que elaboró la cotización.</td></tr>
+<tr><td class="m">id_estado_cotizacion</td><td class="m">INT</td><td>NO</td><td>FK → estado_cotizacion</td><td>Estado actual de la cotización.</td></tr>
+<tr><td class="m">fecha_cotizacion</td><td class="m">DATE</td><td>NO</td><td>-</td><td>Fecha en que se emitió la cotización.</td></tr>
+<tr><td class="m">fecha_vencimiento</td><td class="m">DATE</td><td>NO</td><td>-</td><td>Fecha hasta la cual la cotización es válida.</td></tr>
+<tr><td class="m">observaciones</td><td class="m">TEXT(300)</td><td>SÍ</td><td>-</td><td>Notas o condiciones adicionales de la cotización.</td></tr>
+</tbody></table></div>
+<h2 id="detalle_cotizacion">detalle_cotizacion</h2><p class="desc">Servicios incluidos en cada cotización, con cantidad y precio.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_detalle_cotizacion</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único de la línea de detalle.</td></tr>
+<tr><td class="m">id_cotizacion</td><td class="m">INT</td><td>NO</td><td>FK → cotizaciones</td><td>Cotización a la que pertenece.</td></tr>
+<tr><td class="m">id_servicio</td><td class="m">INT</td><td>NO</td><td>FK → servicios</td><td>Servicio cotizado.</td></tr>
+<tr><td class="m">cantidad</td><td class="m">DECIMAL(10,2)</td><td>NO</td><td>-</td><td>Cantidad del servicio cotizado.</td></tr>
+<tr><td class="m">precio_unitario</td><td class="m">DECIMAL(12,2)</td><td>NO</td><td>-</td><td>Precio por unidad aplicado en esta cotización.</td></tr>
+</tbody></table></div>
+<h2 id="estados_de_reserva">estados_de_reserva</h2><p class="desc">Catálogo de estados posibles de una reserva.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_estado_de_reserva</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único del estado.</td></tr>
+<tr><td class="m">nombre_estado</td><td class="m">VARCHAR(40)</td><td>NO</td><td>-</td><td>Nombre del estado (pendiente, confirmada, cancelada, realizada).</td></tr>
+<tr><td class="m">descripcion</td><td class="m">VARCHAR(200)</td><td>SÍ</td><td>-</td><td>Explicación de lo que significa el estado.</td></tr>
+</tbody></table></div>
+<h2 id="reservas">reservas</h2><p class="desc">Reservas de espacios hechas por los clientes para un evento.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_reserva</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único de la reserva.</td></tr>
+<tr><td class="m">id_cliente</td><td class="m">INT</td><td>NO</td><td>FK → clientes</td><td>Cliente que realiza la reserva.</td></tr>
+<tr><td class="m">id_espacio</td><td class="m">INT</td><td>NO</td><td>FK → espacios</td><td>Espacio reservado.</td></tr>
+<tr><td class="m">id_usuario</td><td class="m">INT</td><td>NO</td><td>FK → usuarios</td><td>Usuario que registró la reserva.</td></tr>
+<tr><td class="m">id_estado_reserva</td><td class="m">INT</td><td>NO</td><td>FK → estados_de_reserva</td><td>Estado actual de la reserva.</td></tr>
+<tr><td class="m">fecha_evento</td><td class="m">DATE</td><td>NO</td><td>-</td><td>Fecha en que se realizará el evento.</td></tr>
+<tr><td class="m">hora_inicio</td><td class="m">TIME</td><td>NO</td><td>-</td><td>Hora de inicio del evento.</td></tr>
+<tr><td class="m">hora_fin</td><td class="m">TIME</td><td>NO</td><td>-</td><td>Hora de finalización del evento.</td></tr>
+<tr><td class="m">numero_asistentes</td><td class="m">INT</td><td>SÍ</td><td>-</td><td>Cantidad estimada de asistentes.</td></tr>
+<tr><td class="m">observaciones</td><td class="m">TEXT(250)</td><td>SÍ</td><td>-</td><td>Notas adicionales sobre la reserva.</td></tr>
+<tr><td class="m">fecha_creacion</td><td class="m">DATETIME</td><td>NO</td><td>-</td><td>Fecha y hora en que se registró la reserva.</td></tr>
+</tbody></table></div>
+<h2 id="metodo_de_pago">metodo_de_pago</h2><p class="desc">Catálogo de formas de pago aceptadas.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_metodo_de_pago</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único del método de pago.</td></tr>
+<tr><td class="m">nombre_de_metodo</td><td class="m">VARCHAR(50)</td><td>NO</td><td>-</td><td>Nombre del método (efectivo, transferencia, tarjeta).</td></tr>
+<tr><td class="m">descripcion</td><td class="m">VARCHAR(200)</td><td>SÍ</td><td>-</td><td>Descripción del método de pago.</td></tr>
+</tbody></table></div>
+<h2 id="estado_pago">estado_pago</h2><p class="desc">Catálogo de estados posibles de un pago.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_estado_pago</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único del estado.</td></tr>
+<tr><td class="m">nombre_estado</td><td class="m">VARCHAR(40)</td><td>NO</td><td>-</td><td>Nombre del estado (pendiente, aprobado, rechazado, reembolsado).</td></tr>
+<tr><td class="m">descripcion</td><td class="m">VARCHAR(200)</td><td>SÍ</td><td>-</td><td>Explicación de lo que significa el estado.</td></tr>
+</tbody></table></div>
+<h2 id="pago">pago</h2><p class="desc">Pagos realizados sobre las reservas.</p><div class="scroll"><table><thead><tr><th>Campo</th><th>Tipo de dato</th><th>Nulo</th><th>Llave</th><th>Descripción</th></tr></thead><tbody>
+<tr><td class="m">id_pago</td><td class="m">INT</td><td>NO</td><td>PK</td><td>Identificador único del pago.</td></tr>
+<tr><td class="m">id_reserva</td><td class="m">INT</td><td>NO</td><td>FK → reservas</td><td>Reserva a la que corresponde el pago.</td></tr>
+<tr><td class="m">id_metodo_pago</td><td class="m">INT</td><td>NO</td><td>FK → metodo_de_pago</td><td>Método con el que se pagó.</td></tr>
+<tr><td class="m">id_estado_pago</td><td class="m">INT</td><td>NO</td><td>FK → estado_pago</td><td>Estado actual del pago.</td></tr>
+<tr><td class="m">id_usuario</td><td class="m">INT</td><td>NO</td><td>FK → usuarios</td><td>Usuario que registró el pago.</td></tr>
+<tr><td class="m">fecha_pago</td><td class="m">DATETIME</td><td>NO</td><td>-</td><td>Fecha y hora en que se realizó el pago.</td></tr>
+<tr><td class="m">valor_pago</td><td class="m">DECIMAL(12,2)</td><td>NO</td><td>-</td><td>Monto pagado.</td></tr>
+<tr><td class="m">referencia_pago</td><td class="m">VARCHAR(100)</td><td>SÍ</td><td>-</td><td>Número de referencia o comprobante de la transacción.</td></tr>
+<tr><td class="m">observaciones</td><td class="m">TEXT(250)</td><td>SÍ</td><td>-</td><td>Notas adicionales sobre el pago.</td></tr>
+</tbody></table></div>
+<div class="notes"><strong>Notas:</strong> PK = llave primaria · FK = llave foránea (→ tabla referenciada) · UQ = valor único.</div></body></html>
